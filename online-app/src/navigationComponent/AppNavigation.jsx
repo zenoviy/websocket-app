@@ -4,18 +4,30 @@ import {
     Switch,
     Route,
     Link,
-    NavLink
+    NavLink,
+    useLocation,
+    withRouter 
 } from 'react-router-dom'
 import HomeComponent from '../homeComponents/HomeComponent'
 import GameMainComponent from '../gameComponents/GameMainScript'
+import GameMainFieldComponent from '../gameComponents/gameMainField/GameMainFieldComponent'
+import NotFoundComponent from '../notFoundComponent/NotFoundComponent'
 
-const AppNavigation = () => {
+import GameRankComponent from '../gameRankComponent/GameRankComponent'
+import NavbarComponent from './NavbarComponent'
+import GameRoomComponent from '../gameRoomComomponents/GameRoomComponent'
+
+/*
+{
+    props.location.pathname != '/game' ?  <NavbarComponent /> : ''
+            }
+
+*/
+const AppNavigation = withRouter( props => {
+    //console.log(props)
     return(
         <Router>
-            <ul>
-                <li><NavLink to='/'>Home</NavLink></li>
-                <li><NavLink to='/game'>Game</NavLink></li>
-            </ul>
+            <NavbarComponent />
             <Switch>
                 <Route exact path='/'>
                     <HomeComponent />
@@ -23,8 +35,20 @@ const AppNavigation = () => {
                 <Route exact path='/game'>
                     <GameMainComponent />
                 </Route>
+                <Route exact path='/game/:id'>
+                    <GameMainFieldComponent />
+                </Route>
+                <Route exact path='/game-rank'>
+                    <GameRankComponent />
+                </Route>
+                <Route exact path='/game-rooms'>
+                    <GameRoomComponent />
+                </Route>
+                <Route exact path='*'>
+                    <NotFoundComponent />
+                </Route>
             </Switch>
         </Router>
     )
-}
+})
 export default AppNavigation

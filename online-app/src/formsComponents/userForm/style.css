@@ -1,0 +1,23 @@
+.user-form-wrapper {
+    background-color: rgba(0, 0, 0, .4);
+    position: absolute;
+    width: 100vw;
+    height: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-form-wrapper .form-inner-body {
+    background: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 300px;
+    border-radius: 10px;
+}
+.user-form-wrapper .form-inner-body input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}

@@ -17,3 +17,10 @@ export const clickDecrease = val => {
         value: val
     }
 }
+
+/* Login Form */
+export const showHideLoginForm = () => {
+    return {
+        type: ACTION_TYPE.SWITCH_USER_FORM
+    }
+}
