@@ -9,13 +9,14 @@ import {
     withRouter 
 } from 'react-router-dom'
 import HomeComponent from '../homeComponents/HomeComponent'
-import GameMainComponent from '../gameComponents/GameMainScript'
+import GameMainComponent from '../gameComponents/GameMainScreenComponent'
 import GameMainFieldComponent from '../gameComponents/gameMainField/GameMainFieldComponent'
 import NotFoundComponent from '../notFoundComponent/NotFoundComponent'
 
 import GameRankComponent from '../gameRankComponent/GameRankComponent'
 import NavbarComponent from './NavbarComponent'
 import GameRoomComponent from '../gameRoomComomponents/GameRoomComponent'
+import UserProfileComponent from '../userProfile/UserProfileComponent'
 
 /*
 {
@@ -43,6 +44,9 @@ const AppNavigation = withRouter( props => {
                 </Route>
                 <Route exact path='/game-rooms'>
                     <GameRoomComponent />
+                </Route>
+                <Route exact path='/profile'>
+                    <UserProfileComponent />
                 </Route>
                 <Route exact path='*'>
                     <NotFoundComponent />

@@ -1,5 +1,9 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import {
+    convrtFormToObjects
+} from '../../workers/formWorker'
+
 
 /*
     Create the game Room
@@ -12,7 +16,10 @@ const GameRoomFormComponent = props => {
             <form onSubmit={(e) => {
                 e.preventDefault()
                 const gameId = new Date().getTime();
-                history.push(`/game/${gameId}`)
+                const res = convrtFormToObjects({form: e.target});
+                if(!res) return
+                console.log(res)
+                history.push(`/game/${gameId}${res.roomName}`)
             }}>
                 <label>
                     <p>*Enter room name</p>
@@ -20,7 +27,7 @@ const GameRoomFormComponent = props => {
                 </label>
                 <label>
                     <p>*Create room password</p>
-                    <input type='password' name='roomPassword' required pattern='[A-Za-z]' />
+                    <input type='password' name='roomPassword' required minLength='5' maxLength='10' />
                 </label>
                 <p></p>
                 <button type='submit'>Create room</button>

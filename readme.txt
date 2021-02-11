@@ -17,9 +17,10 @@
     - save data  Save/Change/Update/Delete
 
         - Storage for the users
-            - Password
-            - Email
-            - nick
+            V- Password
+            V- Email
+            V- nick
+        - authentification
         - Storage for the game room
             - session time (updated each time and closed when all users leave the room)
             - room ID code

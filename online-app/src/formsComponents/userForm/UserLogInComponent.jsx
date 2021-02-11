@@ -8,16 +8,17 @@ import { Context } from '../../store/MainAppStore'
 import Button from '@material-ui/core/Button'
 
 
-const UserBodyComponent = props => {
+const UserLoginFormComponent = props => {
     const [formState, setFormState] = useState({
         statusCode: 0,
         message: ''
     })
+
     const context = useContext(Context);
 
     const formOperations = (e) => {
         const serverRequestDetails = {
-            url: APP_CONSTANTS.HOST + APP_CONSTANTS.API_USERS,
+            url: APP_CONSTANTS.HOST + APP_CONSTANTS.API_SINGLE_USER,
             method: 'POST',
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify(convrtFormToObjects({form: e.target}))
@@ -46,22 +47,18 @@ const UserBodyComponent = props => {
             formOperations(e)
         }}>
             <label>
-                <p>*User name</p>
-                <TextField type='text' name='userName' required />
-            </label>
-            <label>
                 <p>*User email</p>
                 <TextField type='email' name='userEmail' required />
             </label>
             <label>
-            <p>*User password</p>
+                <p>*User password</p>
                 <TextField type='password' name='userPassword' required />
             </label>
 
             <p>{ formState.message }</p>
-            <Button variant="contained" color="primary" type='submit'>Registration</Button>
+            <Button variant="contained" color="primary" type='submit'>Log In</Button>
         </form>
     )
 }
 
-export default UserBodyComponent
+export default UserLoginFormComponent

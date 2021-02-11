@@ -1,5 +1,5 @@
 export const APP_CONSTANTS = {
-    HOST: 'http://127.0.0.1',
+    HOST: 'http://127.0.0.1:3100',
 
     REGISTRATION_FORM: 'REGISTRATION_FORM',
     CREATE_ROOM_FORM: 'CREATE_ROOM_FORM',
@@ -8,7 +8,11 @@ export const APP_CONSTANTS = {
     USER_FORM_SWITCH: 'USER_FORM_SWITCH',
 
     API_USERS: '/api/users',
-    API_ROOMS: 'api/game-rooms'
+    API_SINGLE_USER:'/api/single-user', 
+    API_ROOMS: 'api/game-rooms',
+
+    LOGINED_USER : 'loginedUser',
+
 }
 
  
