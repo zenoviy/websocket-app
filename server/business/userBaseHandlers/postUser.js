@@ -38,22 +38,24 @@ const postNewUser = (req, res) => {
             if(err) return res.status(500).send({message: 'Error has been occured'})
             return res.status(201).send({message: 'User sucessfully created You are the first', token: jwt})
         })
+    } else {
+        fs.readFile(dbFile, (err, data) => {
+            if(err) return res.status(500).send({message: 'Error to read the data'})
+
+            let allUsers = JSON.parse(data);
+            if(validators.userExistCompare({allObjects: allUsers, findTarget: req.body})) return res.status(409).send({message: 'user already exist'})
+            allUsers = allUsers.concat(req.body);
+
+
+            fs.writeFile(dbFile, JSON.stringify(allUsers), err => {
+                if(err) return res.status(500).send({message: 'Error has been occured'})
+                
+                res.status(201).send({message: 'User sucessfully created', token: jwt})
+            })
+        })
     }
 
-    fs.readFile(dbFile, (err, data) => {
-        if(err) return res.status(500).send({message: 'Error to read the data'})
-
-        let allUsers = JSON.parse(data);
-        if(validators.userExistCompare({allObjects: allUsers, findTarget: req.body})) return res.status(409).send({message: 'user already exist'})
-        allUsers = allUsers.concat(req.body);
-
-
-        fs.writeFile(dbFile, JSON.stringify(allUsers), err => {
-            if(err) return res.status(500).send({message: 'Error has been occured'})
-            
-            res.status(201).send({message: 'User sucessfully created', token: jwt})
-        })
-    })
+    
 }
 
 module.exports = {

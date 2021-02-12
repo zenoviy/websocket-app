@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useContext, useState} from 'react'
 import { useHistory } from 'react-router-dom'
-import {
-    convrtFormToObjects
-} from '../../workers/formWorker'
+import { APP_CONSTANTS } from '../../store/appConstants'
+import { serverRequest } from '../../workers/apiWorkers'
+import { convrtFormToObjects, createJwtLocalStorage, readJwtLocalStorage } from '../../workers/formWorker'
+
+import { Context } from '../../store/MainAppStore'
 
 
 /*
@@ -10,16 +12,50 @@ import {
 */
 const GameRoomFormComponent = props => {
     let history = useHistory();
+    const [formState, setFormState] = useState({
+        statusCode: 0,
+        message: ''
+    })
+    const context = useContext(Context);
+    
+    const formOperations = (e) => {
+        const jswToken = readJwtLocalStorage();
+
+        const formObject = convrtFormToObjects({form: e.target});
+        formObject.token = jswToken;
+        const serverRequestDetails = {
+            url: APP_CONSTANTS.HOST + APP_CONSTANTS.API_ROOMS,
+            method: 'POST',
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify(formObject),
+        }
+
+        let statusCode = null
+        serverRequest(serverRequestDetails)
+        .then(data => {
+            setFormState({ ...formState, statusCode: data.status })
+            if(data.status === 202){
+                e.target.reset()
+            }
+            statusCode = data.status
+            return data.json()
+        })
+        .then(data => {
+            console.log(data, formState.statusCode)
+            setFormState({ ...formState, message: data.message })
+            
+            if(statusCode !== 202) return
+
+            const gameId = new Date().getTime();
+            history.push(`/game/${gameId}${formObject.roomName}`)
+        })
+    }
     return(
         <React.Fragment>
             <h1>Game Room Login</h1>
             <form onSubmit={(e) => {
                 e.preventDefault()
-                const gameId = new Date().getTime();
-                const res = convrtFormToObjects({form: e.target});
-                if(!res) return
-                console.log(res)
-                history.push(`/game/${gameId}${res.roomName}`)
+                formOperations(e) 
             }}>
                 <label>
                     <p>*Enter room name</p>

@@ -2,7 +2,9 @@ const fs = require('fs')
 const appConstants = require('../constants')
 const validators = require('./formValidation')
 const jwtTokenizer = require('../jwtTokenize')
-
+/*
+    Not in use
+*/
 
 const logOutUser = (req, res) => {
     if(!req.body || Object.keys(req.body).length < 1) return res.status(400).send({message: 'The request is empty'})

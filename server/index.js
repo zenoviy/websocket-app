@@ -11,8 +11,8 @@ const app = express();
 
 app.use(bodyParser.json())
 
-app.use('/api/game-rooms', express.static(appConstant.staticFileLink))
 app.use('/api/game-rooms', cors())
+//app.use('/api/game-rooms', express.static(appConstant.staticFileLink))
 app.route('/api/game-rooms')
     .get( businessAppLogic.getAllRooms )
     .post( businessAppLogic.openNewRoom )

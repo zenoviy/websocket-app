@@ -9,7 +9,8 @@ import UserFormComponent from '../formsComponents/userForm/UserFormComponent'
 export const Context = createContext(null);
 const AppMainStore = props => {
     const [appGlobalStore, setAppStore] = useReducer(Reducers.MainReducer.MainAppReducer, Reducers.MainReducer.initialState);
-    
+    const [gameRoomsData, setGamesRoomsData] = useReducer(Reducers.GameRoomsReducer.GameRoomsReducer, Reducers.GameRoomsReducer.initialState);
+
     const clickIncrease = val => {
         setAppStore(Actions.clickIncrease(val))
     }
@@ -38,6 +39,16 @@ const AppMainStore = props => {
     }
 
 
+    /* Game Rooms */
+    const getAllGameRomsData = () => {
+        const link = APP_CONSTANTS.HOST + APP_CONSTANTS.API_ROOMS;
+        Actions.getAllGameRomsData({ link })
+        .then(res => {
+            setGamesRoomsData(res)
+        })
+    }
+
+
     useEffect(() => {
         userCheckAuth()
     }, [])
@@ -45,12 +56,14 @@ const AppMainStore = props => {
         <React.Fragment>
             <Context.Provider value={{
                 appGlobalStore,
+                gameRoomsData,
                 clickIncrease: val => clickIncrease(val),
                 clickDecrease: val => clickDecrease(val),
                 showHideLoginForm: () => showHideLoginForm(),
                 userCheckAuth: () => userCheckAuth(),
                 // logInUser: (userData) => logInUser(userData),
-                logOutUser: () => logOutUser()
+                logOutUser: () => logOutUser(),
+                getAllGameRomsData: () => getAllGameRomsData()
             }}>
                 <AppNavigation />
             </Context.Provider>

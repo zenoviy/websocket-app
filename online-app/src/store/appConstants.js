@@ -9,7 +9,7 @@ export const APP_CONSTANTS = {
 
     API_USERS: '/api/users',
     API_SINGLE_USER:'/api/single-user', 
-    API_ROOMS: 'api/game-rooms',
+    API_ROOMS: '/api/game-rooms',
 
     LOGINED_USER : 'loginedUser',
 

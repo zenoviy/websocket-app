@@ -56,30 +56,30 @@ export const userAuth = ({ link }) => {
     })
 }
 
-/* export const logInUser = ({link, userData}) => { 
-    let statusCode = null;
-    const requestSettings = {
-        url: link,
-        body: JSON.stringify({data: userData}),
-        headers: { 'Content-Type': "application/json"},
-        method: 'POST'
-    }
-    return new Promise((res, rej) => {
-        serverRequest(requestSettings)
-        .then(data => {
-            statusCode = data.status;
-            return data.json()}
-        ).then(data => {
-            console.log(data)
-            res({
-                type: ACTION_TYPE.LOG_IN_USER,
-            })
-        })
-    })
-} */
 export const logOutUser = () => {
     clearJwtLocalStorage({itemName: APP_CONSTANTS.LOGINED_USER})
     return {
         type: ACTION_TYPE.LOG_OUT_USER
     }
+}
+
+
+/* All game rooms */
+
+export const getAllGameRomsData = ({ link }) => {
+    return new Promise((res, rej) => {
+        const requestSettings = {
+            url: link,
+            method: 'GET',
+        }
+        serverRequest(requestSettings)
+        .then(data => data.json())
+        .then(data => {
+            console.log(data)
+            res({
+                type: ACTION_TYPE.GET_ALL_GAME_ROOMS,
+                data: data.rooms
+            })
+        })
+    }) 
 }
