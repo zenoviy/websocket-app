@@ -14,12 +14,13 @@ const formsValidator = ({ interface, body }) => {
     }
     return true
 }
-const userExistCompare = ({allObjects, findTarget}) => {
+const userExistCompare = ({allObjects, findTarget, compareKey}) => {
     if(!allObjects.length) return 
-    const existUser = allObjects.find(user => user.userEmail === findTarget.userEmail)
+    const existUser = allObjects.find(user => user[compareKey] === findTarget[compareKey])
     if(existUser) return existUser
     return 
 }
+
 
 
 module.exports = {

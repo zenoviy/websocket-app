@@ -17,6 +17,7 @@ app.route('/api/game-rooms')
     .get( businessAppLogic.getAllRooms )
     .post( businessAppLogic.openNewRoom )
     .delete( businessAppLogic.closeRoom )
+    .put( businessAppLogic.joitToExistRoom )
 
 app.use('/api/users', express.static(appConstant.staticFileLink))
 app.use('/api/users', cors())

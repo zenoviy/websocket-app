@@ -13,9 +13,9 @@ const userAuthenification = (req, res) => {
 
             const jwtObject = jwtTokenizer.tokenDecoded({token: req.body['token'], privateKey: appConstants.PRIVATE_KEY})
             if(!jwtObject) return res.status(401).send({message: 'You are not authorizated'})
-            const user = validators.userExistCompare({allObjects: users, findTarget: jwtObject})
+            const user = validators.userExistCompare({allObjects: users, findTarget: jwtObject, compareKey: 'userEmail'})
             
-            if(!user) res.status(404).send({message: 'This user not exist'})  
+            if(!user) return res.status(404).send({message: 'This user not exist'})  
             const {
                 userEmail,
                 userName,

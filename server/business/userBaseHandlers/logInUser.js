@@ -26,7 +26,7 @@ const logInUser = (req, res) => {
             if(err) return res.status(500).send({message: 'Error to read the data'})
 
             let allUsers = JSON.parse(data);
-            let user = validators.userExistCompare({allObjects: allUsers, findTarget: req.body})
+            let user = validators.userExistCompare({allObjects: allUsers, findTarget: req.body, compareKey: 'userEmail'})
             console.log(user, 'User')
             if(!user) return res.status(401).send({message: 'user not exist please Rigistrate'})
 

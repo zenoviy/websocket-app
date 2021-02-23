@@ -32,7 +32,7 @@ const logOutUser = (req, res) => {
         if(err) return res.status(500).send({message: 'Error to read the data'})
 
         let allUsers = JSON.parse(data);
-        if(validators.userExistCompare({allObjects: allUsers, findTarget: req.body})) return res.status(409).send({message: 'user already exist'})
+        if(validators.userExistCompare({allObjects: allUsers, findTarget: req.body, compareKey: 'userEmail'})) return res.status(409).send({message: 'user already exist'})
         allUsers = allUsers.concat(req.body);
 
         fs.writeFile(dbFile, JSON.stringify(allUsers), err => {

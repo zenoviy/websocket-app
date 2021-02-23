@@ -9,6 +9,7 @@ const logOutUser = require('./userBaseHandlers/logOutUser').logOutUser;
 const getAllRooms = require('./gameRoomHandler/getAllRooms').getAllRooms;
 const openNewRoom = require('./gameRoomHandler/openNewRoom').openNewRoom;
 const closeRoom = require('./gameRoomHandler/closeRoom').closeRoom;
+const joitToExistRoom = require('./gameRoomHandler/joinToRoom').joitToExistRoom;
 
 
 module.exports = {
@@ -21,5 +22,6 @@ module.exports = {
 
     getAllRooms,
     openNewRoom,
-    closeRoom
+    closeRoom,
+    joitToExistRoom
 }

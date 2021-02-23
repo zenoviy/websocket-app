@@ -10,7 +10,7 @@ const getAllRooms = (req, res) => {
 
     if(fs.existsSync(dbFile)) {
         fs.readFile(dbFile, (err, data) => {
-            if(err) res.status(500).send('Error has been occurred')
+            if(err) return res.status(500).send('Error has been occurred')
             let allRoom = JSON.parse(data)
             let roomDataMapped = allRoom.map(roomData => {
                 console.log(roomData)

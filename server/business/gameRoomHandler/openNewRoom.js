@@ -17,16 +17,23 @@ const openNewRoom = (req, res) => {
         dataCreated: new Date().getTime(),
         roomName: req.body['roomName'],
         roomPassword: req.body['roomPassword'],
+        roomLink: new Date().getTime() || req.body['roomName'],
         userToken: req.body['token'],
         roomData: {},
-        roomPlayersData: {},
-        roomChatData: {}
+        roomPlayersData: {
+
+        },
+        roomChatData: {},
+        roomPlayers: [{
+            id,
+            userName
+        }]
     }
     console.log(roomNewRoomData)
     if(!fs.existsSync(dbFile)){
         fs.writeFile(dbFile, JSON.stringify([].concat(roomNewRoomData)), err => {
             if(err) return res.status(500).send({message: 'Error has been occured'})
-            return res.status(202).send({text: 'Data add to file Open New room'})
+            return res.status(202).send({text: 'Data add to file Open New room', roomLink: roomNewRoomData.roomLink})
         })
     } else {
         fs.readFile(dbFile, (err, data) => {
@@ -36,7 +43,7 @@ const openNewRoom = (req, res) => {
             allRoomsData = allRoomsData.concat(roomNewRoomData)
             fs.writeFile(dbFile, JSON.stringify(allRoomsData), err => {
                 if(err) return res.status(500).send({message: 'Error has been occured'})
-                return res.status(202).send({text: 'Open New room'})
+                return res.status(202).send({text: 'Open New room', roomLink: roomNewRoomData.roomLink})
             })
         })
         
