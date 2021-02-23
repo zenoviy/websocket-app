@@ -83,3 +83,23 @@ export const getAllGameRomsData = ({ link }) => {
         })
     }) 
 }
+
+/* Game */
+
+export const setGameEngine = ({engine}) => {
+    return {
+        type: ACTION_TYPE.START_ENGINE,
+        engine
+    }
+}
+export const stopGameEngine = () => {
+    return {
+        type: ACTION_TYPE.STOP_ENGINE
+    }
+}
+export const setCanvasCtx = ({ctx}) => {
+    return {
+        type: ACTION_TYPE.SET_CTX,
+        ctx
+    }
+}

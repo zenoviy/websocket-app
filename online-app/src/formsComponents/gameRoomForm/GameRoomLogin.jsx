@@ -45,9 +45,7 @@ const GameRoomFormComponent = props => {
             setFormState({ ...formState, message: data.message })
             
             if(statusCode !== 202) return
-
-            const gameId = new Date().getTime();
-            history.push(`/game/${gameId}${formObject.roomName}`)
+            history.push(`/game/${data.roomLink}`)
         })
     }
     return(

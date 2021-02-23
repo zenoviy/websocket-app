@@ -10,6 +10,7 @@ export const Context = createContext(null);
 const AppMainStore = props => {
     const [appGlobalStore, setAppStore] = useReducer(Reducers.MainReducer.MainAppReducer, Reducers.MainReducer.initialState);
     const [gameRoomsData, setGamesRoomsData] = useReducer(Reducers.GameRoomsReducer.GameRoomsReducer, Reducers.GameRoomsReducer.initialState);
+    const [gameData, setGameData] = useReducer(Reducers.GameReducer.GameRoomsReducer, Reducers.GameReducer.initialState);
 
     const clickIncrease = val => {
         setAppStore(Actions.clickIncrease(val))
@@ -17,6 +18,16 @@ const AppMainStore = props => {
     const clickDecrease = val => {
         setAppStore(Actions.clickDecrease(val))
     }
+    const setGameEngine = ({engine}) => {
+        setGameData(Actions.setGameEngine({engine}))
+    }
+    const stopGameEngine = () => {
+        setGameData(Actions.stopGameEngine())
+    }
+    const setCanvasCtx = ({ctx}) => {
+        setGameData(Actions.setCanvasCtx(ctx))
+    }
+
     /* Activate login form */
     const showHideLoginForm = () => {
         setAppStore(Actions.showHideLoginForm())
@@ -25,8 +36,10 @@ const AppMainStore = props => {
     const userCheckAuth = () => {
         const link = APP_CONSTANTS.HOST + APP_CONSTANTS.API_USERS;
         Actions.userAuth({ link })
-        .then(res => setAppStore(res))
-        
+        .then(res => {
+            if(!res.value) logOutUser()
+            setAppStore(res)
+        })
     }
 
     /* const logInUser = (userData) => {
@@ -51,12 +64,20 @@ const AppMainStore = props => {
 
     useEffect(() => {
         userCheckAuth()
-    }, [])
+        console.log(appGlobalStore)
+        /*if(!appGlobalStore.userIsLogined){
+            logOutUser()
+        }*/
+    }, [appGlobalStore.userIsLogined])
     return(
         <React.Fragment>
             <Context.Provider value={{
                 appGlobalStore,
                 gameRoomsData,
+                gameData,
+                setGameEngine: ({engine}) => setGameEngine({engine}),
+                stopGameEngine: () => stopGameEngine(),
+                setCanvasCtx: ({ctx}) => setCanvasCtx({ctx}),
                 clickIncrease: val => clickIncrease(val),
                 clickDecrease: val => clickDecrease(val),
                 showHideLoginForm: () => showHideLoginForm(),

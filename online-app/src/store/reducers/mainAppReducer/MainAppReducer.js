@@ -7,7 +7,7 @@ export const initialState = {
 }
 
 export const MainAppReducer = (store = initialState, payload) => {
-    console.log(payload)
+    //console.log(payload)
     switch(payload.type) {
         case ACTION_TYPE.CLICK_INCREASE: 
             return {
@@ -30,7 +30,7 @@ export const MainAppReducer = (store = initialState, payload) => {
                 userIsLogined: payload.value
             }
         case ACTION_TYPE.LOG_OUT_USER:
-            console.log('unloged')
+            //console.log('unloged')
             return {
                 ...store,
                 userIsLogined: false

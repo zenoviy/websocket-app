@@ -1,11 +1,11 @@
 export const serverRequest = props => {
     
     if(!props.headers) {
-console.log(props, props.url)
+        //console.log(props, props.url)
 
-        fetch("http://127.0.0.1:3100/api/game-rooms", {method: 'GET'})
+        fetch(props.url, {method: 'GET'})
         .then(data => { 
-            console.log(data)
+            //console.log(data)
             return data.json()})
         .then(data => {
             console.log(data, 'retrival Data')

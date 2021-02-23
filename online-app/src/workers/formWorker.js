@@ -14,7 +14,7 @@ export const convrtFormToObjects = ({ form }) => {
 
 
 export const createJwtLocalStorage = ({token}) => {
-    console.log(APP_CONSTANTS.LOGINED_USER, token)
+    //console.log(APP_CONSTANTS.LOGINED_USER, token)
     localStorage.setItem(APP_CONSTANTS.LOGINED_USER, token)
 }
 

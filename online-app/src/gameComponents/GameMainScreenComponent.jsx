@@ -10,10 +10,24 @@ const GameMainComponent = props => {
     const [formStatus, settFormStatus] = useState({
         chosenForm: APP_CONSTANTS.JOIN_TO_ROOM
     })
+    const [joinRoomConfirmation, setJoinRoomConfirmation] = useState({
+        enterToTheRoom: false,
+        roomPasswordAlert: false,
+        roomName: null,
+        id: null
+    })
     const context = useContext(Context);
     const changeFormState = state => {
         settFormStatus({
             chosenForm: state
+        })
+    }
+    const joinToRoom = ({roomName, id}) => {
+        setJoinRoomConfirmation({
+            ...joinRoomConfirmation,
+            roomPasswordAlert: true,
+            roomName: roomName,
+            id
         })
     }
 
@@ -26,7 +40,10 @@ const GameMainComponent = props => {
             {
                 formStatus.chosenForm === APP_CONSTANTS.CREATE_ROOM_FORM 
                 ? <GameRoomOrLoginComponent context={context} />
-                : <AllGamesRoomComponent />
+                : <AllGamesRoomComponent 
+                    joinToRoom={joinToRoom} 
+                    joinRoomConfirmation={joinRoomConfirmation} 
+                    setJoinRoomConfirmation={setJoinRoomConfirmation} />
             }
 
         </React.Fragment>
@@ -35,7 +52,7 @@ const GameMainComponent = props => {
 
 
 const GameRoomOrLoginComponent = ({context}) => {
-    console.log(context.appGlobalStore.userIsLogined, "<<")
+    //console.log(context.appGlobalStore.userIsLogined, "<<")
     return(
         <React.Fragment>
             <h1>{!context.appGlobalStore.userIsLogined ? 'You must login first!' : ''}</h1>
