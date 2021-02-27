@@ -36,11 +36,22 @@ const joitToExistRoom = (req, res) => {
                 const currentRoom = validators.userExistCompare({allObjects: allRoom, findTarget: {id}, compareKey: 'id'})
                 
                 if(currentRoom.roomPassword != roomPassword) return res.status(404).send({message: 'Wrong password'})
-                console.log(allRoom, currentRoom)
-                res.status(202).send({message: 'Join to room', roomLink: currentRoom.roomLink})
+                allRoom = allRoom.map(room => {
+                    console.log(room, id)
+                    if(room.id == id){
+                        let currentRoomObject = Object.assign({}, room);
+                        let userCheck = validators.userExistCompare({allObjects: currentRoomObject.roomPlayers, findTarget: user, compareKey: 'id'})
+                        if(!userCheck) currentRoomObject.roomPlayers.push({userName: user.userName, id: user.id})
+                        return currentRoomObject
+                    } 
+                    return room
+                })
+                console.log(allRoom)
+                fs.writeFile(dbFile, JSON.stringify(allRoom), err => { 
+                    if(err) return res.status(500).send({message: 'some server error'})
+                    res.status(202).send({message: 'Join to room', roomLink: currentRoom.roomLink})
+                })
             })
-
-            
         })
     } else return res.status(404).send({message: 'Not found DB not exist'})
     

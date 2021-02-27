@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const tokenizer = ({ object, privateKey }) => {
    let token = jwt.sign(object, privateKey)
-   console.log(token)
+   //console.log(token)
    return token
 }
 

@@ -2,20 +2,28 @@ import React, { useRef, useEffect, useContext, useState } from 'react'
 
 import GameOptionsComponent from './GameOptions'
 import ChatMainComponent from '../chatRoom/ChatMainComponent'
+import { useLocation, useRouteMatch, useParams } from 'react-router-dom'
+import { APP_CONSTANTS } from '../../store/appConstants'
 import * as Game from '../../workers/gameLogic'
 import { Context } from '../../store/MainAppStore'
 import { convrtFormToObjects } from '../../workers/formWorker'
+import { message } from '../../workers/webSocketWorkers'
 import './gameStyle.css'
 
 
 /*
-    Game room must check user befor room load
+    Game room must check user befor room load  WEB_SOCKET_HOST
 */
 const GameMainFieldComponent = props => {
-
+    
     const canvasRef = useRef(null);
     const canvasWrapper = useRef(null);
     const context = useContext(Context);
+    const location = useLocation();
+    const routeMatch = useRouteMatch();
+    const params = useParams();
+    const socket = new WebSocket(`${APP_CONSTANTS.WEB_SOCKET_HOST}?id=${params.id}`)
+
     let ctx = null;
     const gameLocalData = {
         character: {
@@ -27,11 +35,15 @@ const GameMainFieldComponent = props => {
         }
     }
     let width = null; let height = null;
-
+    //console.log( params.id)
     useEffect(() => {
+        message({
+            socket
+        })
         return () => {
             Game.removeGameController()
             context.stopGameEngine()
+            socket.close()
         } 
     }, [])
     
@@ -85,11 +97,11 @@ const GameMainFieldComponent = props => {
                 canvasRef={canvasRef}
                  /> : null }
             <div className='game-main-wrapper'>
-                <div className='game-wrapper-area'>
+                <div className='game-wrapper-area container'>
                     <div className='game-inner-wrapper' ref={canvasWrapper}>
                         <canvas ref={canvasRef}></canvas>
                     </div>
-                    <ChatMainComponent />                   
+                    <ChatMainComponent socket={socket} roomId={params.id} />                   
                 </div>
             </div>
         </React.Fragment>

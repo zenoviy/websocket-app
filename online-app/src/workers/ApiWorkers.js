@@ -18,3 +18,14 @@ export const serverRequest = props => {
         body: props.body ? props.body : false
     })
 }
+
+
+export const locationLast = ({str}) => {
+    let arrOfData = str.split('/');
+    console.log(arrOfData.length)
+    return arrOfData[arrOfData.length - 1]
+}
+
+export const serverWebSocketRequest = props => {
+    
+}

@@ -19,17 +19,15 @@ const openNewRoom = (req, res) => {
         roomPassword: req.body['roomPassword'],
         roomLink: new Date().getTime() || req.body['roomName'],
         userToken: req.body['token'],
-        roomData: {},
-        roomPlayersData: {
-
-        },
-        roomChatData: {},
+        roomData: [],
+        roomPlayersData:[],
+        roomMessages: [],
         roomPlayers: [{
             id,
             userName
         }]
     }
-    console.log(roomNewRoomData)
+    //console.log(roomNewRoomData)
     if(!fs.existsSync(dbFile)){
         fs.writeFile(dbFile, JSON.stringify([].concat(roomNewRoomData)), err => {
             if(err) return res.status(500).send({message: 'Error has been occured'})

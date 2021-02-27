@@ -11,6 +11,8 @@ const openNewRoom = require('./gameRoomHandler/openNewRoom').openNewRoom;
 const closeRoom = require('./gameRoomHandler/closeRoom').closeRoom;
 const joitToExistRoom = require('./gameRoomHandler/joinToRoom').joitToExistRoom;
 
+const roomMessenger = require('./gameRoomHandler/roomMessenger').roomMessenger;
+const roomSocketValidator = require('./gameRoomHandler/roomMessenger').roomSocketValidator
 
 module.exports = {
     getAllUser,
@@ -23,5 +25,8 @@ module.exports = {
     getAllRooms,
     openNewRoom,
     closeRoom,
-    joitToExistRoom
+    joitToExistRoom,
+
+    roomMessenger,
+    roomSocketValidator
 }

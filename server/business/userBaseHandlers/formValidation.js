@@ -16,7 +16,7 @@ const formsValidator = ({ interface, body }) => {
 }
 const userExistCompare = ({allObjects, findTarget, compareKey}) => {
     if(!allObjects.length) return 
-    const existUser = allObjects.find(user => user[compareKey] === findTarget[compareKey])
+    const existUser = allObjects.find(user => user[compareKey].toString() === findTarget[compareKey].toString())
     if(existUser) return existUser
     return 
 }

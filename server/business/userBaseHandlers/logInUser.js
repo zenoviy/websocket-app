@@ -27,7 +27,7 @@ const logInUser = (req, res) => {
 
             let allUsers = JSON.parse(data);
             let user = validators.userExistCompare({allObjects: allUsers, findTarget: req.body, compareKey: 'userEmail'})
-            console.log(user, 'User')
+            //console.log(user, 'User')
             if(!user) return res.status(401).send({message: 'user not exist please Rigistrate'})
 
             const {
@@ -42,7 +42,7 @@ const logInUser = (req, res) => {
                 }
                 return userDb 
             });
-            console.log(jwt)
+            //console.log(jwt)
 
             fs.writeFile(dbFile, JSON.stringify(allUsers), err => {
                 if(err) return res.status(500).send({message: 'Error has been occured'})

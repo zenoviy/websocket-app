@@ -13,7 +13,7 @@ const getAllRooms = (req, res) => {
             if(err) return res.status(500).send('Error has been occurred')
             let allRoom = JSON.parse(data)
             let roomDataMapped = allRoom.map(roomData => {
-                console.log(roomData)
+                //console.log(roomData)
                 return {
                     id: roomData.id,
                     roomName: roomData.roomName,
