@@ -1,0 +1,50 @@
+.game-main-wrapper {
+    background: rgb(26, 43, 63);
+    height: 100vh;
+}
+.game-main-wrapper canvas {
+    background: #fff;
+}
+.game-notification {
+    background: #fff;
+    padding: 10px;
+}
+.game-wrapper-area {
+    display: flex;
+    flex-direction: row;
+}
+.game-inner-wrapper{
+    width: 70%;
+}
+.chat-text-area {
+    width: 30%;
+}
+
+
+.selected-room-list {
+    background: #bbb;
+}
+.chat-text-area
+.chat-message-area {
+    height: 500px;
+    background: rgba(28, 7, 54, 0.692);
+    overflow-y: scroll;
+}
+.chat-text-area textarea, 
+.chat-text-area button {
+    width: 100%;
+}
+
+.message-text-body {
+    border-radius: 10px;
+    background: #fff;
+    padding: 5px;
+    width: 60%;
+    float: right;
+    position: relative;
+    font-size: 0.8rem;
+}
+.message-text-body h5, 
+.message-text-body p {
+    margin: 5px 0 5px 0;
+}
